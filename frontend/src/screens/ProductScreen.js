@@ -11,7 +11,7 @@ export default function ProductScreen(probs)
 {
     const dispatch = useDispatch();
     const productId = probs.match.params.id;
-    var {quantity, setQty} = useState(1);
+    const [quantity, setQty] = useState(1);
     const productDetails = useSelector((state)=>state.productDetails);
     const {loading, error, product} = productDetails;
 
@@ -21,7 +21,7 @@ export default function ProductScreen(probs)
     }, [dispatch, productId]);
 
     const addToCartHandler = ()=>{
-        probs.history.push(`/cart/${productId}?quantity =${setQty}`);
+        probs.history.push(`/cart/${productId}?quantity =${quantity}`);
     }
  
     return(
@@ -90,7 +90,7 @@ export default function ProductScreen(probs)
                                 Quantity
                             </div>
                             <div>
-                                <select value={quantity} onChange={(e) => setQty=e.target.value}>
+                                <select value={quantity} onChange={(e) => setQty(e.target.value)}>
 
                                     {[...Array(product.countInStock).keys()].map(
                                         (x)=>(
